@@ -69,25 +69,25 @@ export const VideoPlayerOptimized = ({ streamUrl, autoPlay = true }: VideoPlayer
     const downlink = network.downlink;
 
     return {
-      debug: false,
+      debug: true,
       enableWorker: true,
-      lowLatencyMode: isGoodNetwork,
-      backBufferLength: 20,
-      maxBufferLength: isGoodNetwork ? 30 : 20,
+      lowLatencyMode: true,
+      backBufferLength: 30,
+      maxBufferLength: 60,
       maxBufferSize: 60 * 1000 * 1000,
       maxBufferHole: 0.5,
       highBufferWatchdogPeriod: 2,
       nudgeOffset: 0.1,
       nudgeMaxRetry: 10,
       maxFragLookUpTolerance: 0.25,
-      liveSyncDurationCount: 3,
-      liveMaxLatencyDurationCount: isGoodNetwork ? 10 : 6,
+      liveSyncDurationCount: 5,
+      liveMaxLatencyDurationCount: 10isGoodNetwork ? 10 : 6,
       manifestLoadingTimeOut: 10000,
       fragLoadingTimeOut: 20000,
       levelLoadingTimeOut: 10000,
       manifestLoadingMaxRetry: 4,
       levelLoadingMaxRetry: 4,
-      fragLoadingMaxRetry: 6,
+      fragLoadingMaxRetry: 20,
       startLevel: -1, // Auto
       autoStartLoad: true,
       startPosition: -1,
@@ -133,7 +133,7 @@ export const VideoPlayerOptimized = ({ streamUrl, autoPlay = true }: VideoPlayer
       return;
     }
 
-    const hls = new Hls(getHlsConfig());
+    const hls = createHlsInstance(videoEl, getHlsConfig());
     hlsRef.current = hls;
 
     // Événements HLS essentiels

@@ -421,19 +421,19 @@ export const VideoPlayerHybrid = ({
       
       // ========== LIVE SYNC: latence vs stabilité ==========
       liveSyncDurationCount: 5,         // 5 segments du live (marge confortable)
-      liveMaxLatencyDurationCount: 12,  // Max 12 segments retard (très tolérant)
+      liveMaxLatencyDurationCount: 10,  // Max 12 segments retard (très tolérant)
       liveDurationInfinity: false,
       
       // ========== BACK BUFFER (NETTOYAGE AUTO) ==========
-      backBufferLength: 60,             // 15s en arrière (sera nettoyé auto)
+      backBufferLength: 30,             // 15s en arrière (sera nettoyé auto)
       
       // ========== CHARGEMENT ROBUSTE ==========
       manifestLoadingTimeOut: 10000,
-      fragLoadingTimeOut: 20000,        // 20s timeout fragments
+      fragLoadingTimeOut: 40000,        // 20s timeout fragments
       levelLoadingTimeOut: 10000,
       manifestLoadingMaxRetry: 4,
       levelLoadingMaxRetry: 4,
-      fragLoadingMaxRetry: 6,           // 6 tentatives par fragment
+      fragLoadingMaxRetry: 20,           // 6 tentatives par fragment
       manifestLoadingRetryDelay: 500,
       levelLoadingRetryDelay: 500,
       fragLoadingRetryDelay: 500,       // Délai initial retry
@@ -675,9 +675,9 @@ export const VideoPlayerHybrid = ({
           maxBufferLength: 60,
           maxBufferSize: 60 * 1000 * 1000,
           maxBufferHole: 0.7,
-          liveSyncDurationCount: 3,
-          fragLoadingTimeOut: 20000,
-          fragLoadingMaxRetry: 6,
+          liveSyncDurationCount: 5,
+          fragLoadingTimeOut: 40000,
+          fragLoadingMaxRetry: 20,
           fragLoadingRetryDelay: 500,
           autoStartLoad: true,
           startPosition: -1,

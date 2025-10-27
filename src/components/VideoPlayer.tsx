@@ -433,7 +433,7 @@ export const VideoPlayer = ({ streamUrl, autoPlay = true }: VideoPlayerProps) =>
       debug: true,
       enableWorker: true,
       lowLatencyMode: true,
-      backBufferLength: 60,
+      backBufferLength: 30,
       maxBufferLength: 60,
       maxBufferSize: 120 * 1000 * 1000,
       maxBufferHole: 0.5,
@@ -441,12 +441,12 @@ export const VideoPlayer = ({ streamUrl, autoPlay = true }: VideoPlayerProps) =>
       nudgeOffset: 0.1,
       nudgeMaxRetry: 8,
       maxFragLookUpTolerance: 0.2,
-      liveSyncDurationCount: 3,
-      liveMaxLatencyDurationCount: 6,
+      liveSyncDurationCount: 5,
+      liveMaxLatencyDurationCount: 10,
       manifestLoadingTimeOut: 12000,
-      fragLoadingTimeOut: 25000,
+      fragLoadingTimeOut: 40000,
       manifestLoadingMaxRetry: 6,
-      fragLoadingMaxRetry: 12,
+      fragLoadingMaxRetry: 20,
     });
 
     hls.on(Hls.Events.ERROR, (event, data) => {

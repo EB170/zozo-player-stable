@@ -204,9 +204,9 @@ export const VideoPlayer = ({ streamUrl, autoPlay = true }: VideoPlayerProps) =>
           
           // Créer nouveau player avec URL de la qualité cible
           const newHls = new Hls({
-            debug: false,
+            debug: true,
             enableWorker: true,
-            lowLatencyMode: networkSpeedRef.current === 'fast',
+            lowLatencyMode: true,
             maxBufferLength: 60,
           });
           
@@ -243,9 +243,9 @@ export const VideoPlayer = ({ streamUrl, autoPlay = true }: VideoPlayerProps) =>
               backupVideo.muted = true;
               
               const backupHls = new Hls({
-                debug: false,
+                debug: true,
                 enableWorker: true,
-                lowLatencyMode: networkSpeedRef.current === 'fast',
+                lowLatencyMode: true,
                 maxBufferLength: 60,
               });
               
@@ -430,23 +430,23 @@ export const VideoPlayer = ({ streamUrl, autoPlay = true }: VideoPlayerProps) =>
     const bufferLength = networkSpeedRef.current === 'fast' ? 60 : networkSpeedRef.current === 'medium' ? 40 : 30;
     
     const hls = createHlsInstance(videoEl, {
-      debug: false,
+      debug: true,
       enableWorker: true,
-      lowLatencyMode: networkSpeedRef.current === 'fast',
-      backBufferLength: 20,
-      maxBufferLength: bufferLength,
+      lowLatencyMode: true,
+      backBufferLength: 30,
+      maxBufferLength: 60,
       maxBufferSize: 120 * 1000 * 1000,
       maxBufferHole: 0.5,
       highBufferWatchdogPeriod: 2,
       nudgeOffset: 0.1,
       nudgeMaxRetry: 8,
       maxFragLookUpTolerance: 0.2,
-      liveSyncDurationCount: 3,
-      liveMaxLatencyDurationCount: 6,
+      liveSyncDurationCount: 5,
+      liveMaxLatencyDurationCount: 10,
       manifestLoadingTimeOut: 12000,
       fragLoadingTimeOut: 25000,
       manifestLoadingMaxRetry: 6,
-      fragLoadingMaxRetry: 12,
+      fragLoadingMaxRetry: 20,
     });
 
     hls.on(Hls.Events.ERROR, (event, data) => {
@@ -1137,7 +1137,7 @@ export const VideoPlayer = ({ streamUrl, autoPlay = true }: VideoPlayerProps) =>
                 cleanupPlayer(activeRefs.mpegts, activeRefs.hls);
                 
                 const newHls = new Hls({
-                  debug: false,
+                  debug: true,
                   enableWorker: true,
                   lowLatencyMode: true,
                   maxBufferLength: 60,
@@ -1176,7 +1176,7 @@ export const VideoPlayer = ({ streamUrl, autoPlay = true }: VideoPlayerProps) =>
                     backupVideo.muted = true;
                     
                     const backupHls = new Hls({
-                      debug: false,
+                      debug: true,
                       enableWorker: true,
                       lowLatencyMode: true,
                       maxBufferLength: 60,
