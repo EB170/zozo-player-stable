@@ -414,26 +414,26 @@ export const VideoPlayerHybrid = ({
       enableWorker: true,
       
       // ========== BUFFER: maximisé pour zéro saccade ==========
-      maxBufferLength: 60,              // 90s buffer forward (très large)
+      maxBufferLength: 120,              // 90s buffer forward (très large)
       maxMaxBufferLength: 120,          // Cap 120s (tolérance maximale)
       maxBufferSize: 100 * 1000 * 1000, // 100MB (évite tout underrun)
       maxBufferHole: 0.2,               // 200ms tolérance gaps
       
       // ========== LIVE SYNC: latence vs stabilité ==========
-      liveSyncDurationCount: 5,         // 5 segments du live (marge confortable)
-      liveMaxLatencyDurationCount: 10,  // Max 12 segments retard (très tolérant)
+      liveSyncDurationCount: 1,         // 5 segments du live (marge confortable)
+      liveMaxLatencyDurationCount: 3,  // Max 12 segments retard (très tolérant)
       liveDurationInfinity: false,
       
       // ========== BACK BUFFER (NETTOYAGE AUTO) ==========
-      backBufferLength: 30,             // 15s en arrière (sera nettoyé auto)
+      backBufferLength: 60,             // 15s en arrière (sera nettoyé auto)
       
       // ========== CHARGEMENT ROBUSTE ==========
       manifestLoadingTimeOut: 10000,
-      fragLoadingTimeOut: 20000,        // 20s timeout fragments
+      fragLoadingTimeOut: 60000,        // 20s timeout fragments
       levelLoadingTimeOut: 10000,
       manifestLoadingMaxRetry: 4,
       levelLoadingMaxRetry: 4,
-      fragLoadingMaxRetry: 20,           // 6 tentatives par fragment
+      fragLoadingMaxRetry: 30,           // 6 tentatives par fragment
       manifestLoadingRetryDelay: 500,
       levelLoadingRetryDelay: 500,
       fragLoadingRetryDelay: 500,       // Délai initial retry
@@ -449,9 +449,9 @@ export const VideoPlayerHybrid = ({
       // ========== ANTI-STALL ==========
       maxStarvationDelay: 4,
       maxLoadingDelay: 4,
-      highBufferWatchdogPeriod: 2,
-      nudgeOffset: 0.1,
-      nudgeMaxRetry: 3,
+      highBufferWatchdogPeriod: 1,
+      nudgeOffset: 0.05,
+      nudgeMaxRetry: 20,
       
       // ========== PRÉCHARGEMENT ==========
       startLevel: -1,
@@ -672,12 +672,12 @@ export const VideoPlayerHybrid = ({
         const newHls = new Hls({
           debug: true,
           enableWorker: true,
-          maxBufferLength: 60,
+          maxBufferLength: 120,
           maxBufferSize: 60 * 1000 * 1000,
           maxBufferHole: 0.7,
-          liveSyncDurationCount: 5,
-          fragLoadingTimeOut: 20000,
-          fragLoadingMaxRetry: 20,
+          liveSyncDurationCount: 1,
+          fragLoadingTimeOut: 60000,
+          fragLoadingMaxRetry: 30,
           fragLoadingRetryDelay: 500,
           autoStartLoad: true,
           startPosition: -1,
